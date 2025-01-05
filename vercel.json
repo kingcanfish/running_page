@@ -6,5 +6,7 @@
   },
   "github": {
     "enabled": false
-  }
+  },
+  "version": 2,
+  "public": false
 }
