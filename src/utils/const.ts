@@ -45,7 +45,7 @@ const PRIVACY_MODE = true;
 //set to `false` if you want to make light off as default, only effect when `PRIVACY_MODE` = false
 const LIGHTS_ON =false;
 // richer title for the activity types (like garmin style)
-const RICH_TITLE = true;
+const RICH_TITLE = false;
 
 // IF you outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
