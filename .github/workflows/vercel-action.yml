@@ -108,6 +108,14 @@ jobs:
 #        id: deployment
 #        uses: actions/deploy-pages@v4
 
+      - name: Debug secrets
+        run: |
+          if [[ -z "${{ secrets.VERCEL_TOKEN }}" ]]; then
+            echo "Secret VERCEL_TOKEN is not available."
+          else
+            echo "Secret VERCEL_TOKEN is available."
+          fi
+
       - name: Deploy to Vercel
         id: vercel-action
         uses: amondnet/vercel-action@v25
