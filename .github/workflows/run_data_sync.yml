@@ -254,7 +254,4 @@ jobs:
       data_cache_prefix: ${{needs.sync.outputs.DATA_CACHE_PREFIX}}
     needs:
       - sync
-    secrets:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      ORG_ID: ${{ secrets.ORG_ID }}
-      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+    secrets: inherit
