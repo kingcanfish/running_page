@@ -27,8 +27,8 @@ const MAP_LAYER_LIST = [
   'country-label',
 ];
 
-const USE_GOOGLE_ANALYTICS = false;
-const GOOGLE_ANALYTICS_TRACKING_ID = '';
+const USE_GOOGLE_ANALYTICS = true;
+const GOOGLE_ANALYTICS_TRACKING_ID = 'G-VLH6YDRG3G';
 
 // styling: set to `true` if you want dash-line route
 const USE_DASH_LINE = true;
@@ -37,15 +37,15 @@ const LINE_OPACITY = 0.4;
 // styling: map height
 const MAP_HEIGHT = 600;
 //set to `false` if you want to hide the road label characters
-const ROAD_LABEL_DISPLAY = true;
+const ROAD_LABEL_DISPLAY = false;
 // update for now 2024/11/17 the privacy mode is true
 //set to `true` if you want to display only the routes without showing the map.
-const PRIVACY_MODE = false;
+const PRIVACY_MODE = true;
 // update for now 2024/11/17 the lights on default is false
 //set to `false` if you want to make light off as default, only effect when `PRIVACY_MODE` = false
 const LIGHTS_ON =false;
 // richer title for the activity types (like garmin style)
-const RICH_TITLE = false;
+const RICH_TITLE = true;
 
 // IF you outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
