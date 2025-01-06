@@ -32,9 +32,16 @@ class GithubDrawer(TracksDrawer):
             github_rect_first_day = datetime.date(year, 1, 1)
             # Github profile the first day start from the last Monday of the last year or the first Monday of this year
             # It depands on if the first day of this year is Monday or not.
-            github_rect_day = github_rect_first_day + datetime.timedelta(
-                -start_date_weekday
-            )
+            # github_rect_day = github_rect_first_day + datetime.timedelta(
+            #     -start_date_weekday
+            # )
+            # github_rect_day = github_rect_first_day
+
+            # 获取1月1日是星期几（0=Monday, 6=Sunday）
+            first_day_weekday = github_rect_first_day.weekday()
+
+            # 如果1月1日不是星期一，则需要跳过一些空格
+            github_rect_day = github_rect_first_day
             year_length = total_length_year_dict.get(year, 0)
             year_length = format_float(self.poster.m2u(year_length))
 
@@ -110,10 +117,19 @@ class GithubDrawer(TracksDrawer):
 
             rect_x = 10.0
             dom = (2.6, 2.6)
+
+            rect_y = offset.y + year_size + 2
+
             # add every day of this year for 53 weeks and per week has 7 days
             for i in range(54):
-                rect_y = offset.y + year_size + 2
-                for j in range(7):
+                # first_day_weekday：每周周的第一天是星期几
+                # 如果是星期三（first_day_weekday == 2）则要跳过两个空格
+                if i == 0:
+                    rect_y += 3.5 * first_day_weekday
+                else:
+                    first_day_weekday = 0
+                    rect_y = offset.y + year_size + 2
+                for j in range(7 - first_day_weekday):
                     if int(github_rect_day.year) > year:
                         break
                     rect_y += 3.5
