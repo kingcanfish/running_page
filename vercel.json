@@ -4,9 +4,7 @@
       "gh-pages": false
     }
   },
-  "github": {
-    "enabled": false
-  },
-  "version": 2,
-  "public": false
+  "rewrites":  [
+    {"source": "/(.*)", "destination": "/"}
+  ]
 }
