@@ -36,7 +36,8 @@
     --color-run-table-thead: #cccccc;
     --color-run-row-hover-background: #242424;
     --color-activity-card: #2e2e2e;
-    --font-sans: 'PingFang SC', 'Inter', 'Montserrat', 'Playfair Display', sans-serif;
+    --font-sans: 'PingFang SC', 'Inter', 'Montserrat', 'Playfair Display',
+      sans-serif;
     --font-mono: 'Roboto Mono', 'IBM Plex Mono', monospace;
   }
 }
