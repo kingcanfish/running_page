@@ -76,6 +76,7 @@ def get_to_download_runs_ids(session, headers, sport_type):
             RUN_DATA_API.format(sport_type=sport_type, last_date=last_date),
             headers=headers,
         )
+        print(r.ok, r.json())
         if r.ok:
             run_logs = r.json()["data"]["records"]
 
