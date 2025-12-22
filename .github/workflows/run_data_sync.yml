@@ -89,9 +89,6 @@ jobs:
             src/static/activities.json
             imported.json
           key: ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-
-            ${{ env.DATA_CACHE_PREFIX }}-
 
       - name: Run sync Nike script
         if: env.RUN_TYPE == 'nike'

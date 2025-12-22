@@ -67,9 +67,6 @@ jobs:
             src/static/activities.json
             imported.json
           key: ${{ inputs.data_cache_prefix }}-${{ github.sha }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ inputs.data_cache_prefix }}-${{ github.sha }}-
-            ${{ inputs.data_cache_prefix }}-
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
