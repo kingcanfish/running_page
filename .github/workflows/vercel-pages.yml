@@ -49,6 +49,8 @@ jobs:
         with:
           # if your default branches is not master, please change it here
           ref: master
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Cache Data Files
         if: inputs.save_data_in_github_cache
@@ -73,7 +75,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Enable corepack
         run: npm install -g corepack@latest && corepack enable pnpm
 
@@ -93,7 +94,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
-        run: pnpm build
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: PATH_PREFIX=/$REPO_NAME pnpm build
 
       - name: Deploy to Vercel
         id: vercel-action
