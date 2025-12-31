@@ -48,7 +48,8 @@ const LIGHTS_ON = true;
 //set to `true` if you want to show the 'Elevation Gain' column
 const SHOW_ELEVATION_GAIN = true;
 // richer title for the activity types (like garmin style)
-const RICH_TITLE = false;
+// Set to true to use activity type (e.g., "徒步") instead of time-based title (e.g., "午间跑步")
+const RICH_TITLE = true;
 
 // IF you are outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
