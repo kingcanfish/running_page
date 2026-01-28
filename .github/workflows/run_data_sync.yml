@@ -2,6 +2,12 @@ name: Run Data Sync
 
 on:
   workflow_dispatch:
+    inputs:
+      skip_cache_restore:
+        description: Skip restoring previous cache (manual run only)
+        required: false
+        type: boolean
+        default: false
   schedule:
     - cron: '0 16 * * *'
   push:
@@ -74,8 +80,27 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Cache Data Files
-        if: env.SAVE_DATA_IN_GITHUB_CACHE == 'true'
+      - name: Cache Data Files (restore)
+        if: env.SAVE_DATA_IN_GITHUB_CACHE == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.skip_cache_restore)
+        uses: actions/cache@v4
+        with:
+          path: |
+            activities
+            assets
+            GPX_OUT
+            TCX_OUT
+            FIT_OUT
+            Workouts
+            run_page/data.db
+            src/static/activities.json
+            imported.json
+          key: ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-
+            ${{ env.DATA_CACHE_PREFIX }}-
+
+      - name: Cache Data Files (no-restore)
+        if: env.SAVE_DATA_IN_GITHUB_CACHE == 'true' && github.event_name == 'workflow_dispatch' && inputs.skip_cache_restore
         uses: actions/cache@v4
         with:
           path: |
