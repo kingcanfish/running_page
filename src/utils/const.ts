@@ -237,8 +237,8 @@ export const MAP_TILE_STYLE_LIGHT = 'osm-bright';
 export const MAP_TILE_STYLE_DARK = 'dark-matter';
 
 // access token. you can apply a new one, it's free.
-// maptiler: Gt5R0jT8tuIYxW6sNrAg | sign up at https://cloud.maptiler.com/auth/widget
-// stadiamaps: 8a769c5a-9125-4936-bdcf-a6b90cb5d0a4 | sign up at https://client.stadiamaps.com/signup/
+// maptiler: your_maptiler_access_token | sign up at https://cloud.maptiler.com/auth/widget
+// stadiamaps: your_stadiamaps_api_key | sign up at https://client.stadiamaps.com/signup/
 // mapcn: empty
 export const MAP_TILE_ACCESS_TOKEN = '';
 
