@@ -109,16 +109,9 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
         run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
 
-      - name: Build with Vercel CLI
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        run: vercel build --prod --token="$VERCEL_TOKEN"
-
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        run: vercel deploy --prod --yes --token="$VERCEL_TOKEN"
