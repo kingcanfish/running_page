@@ -233,16 +233,11 @@ docker run -itd -p 80:80   running_page:latest
 
 ```
 
-## 配置 Mapbox token
+## 地图运行时
 
-> 建议自行申请 [Mapbox token](https://www.mapbox.com/)，并通过本地环境变量配置，不要直接写进源码。
+> 默认配置现在使用 MapLibre GL + MapCN，不再需要 Mapbox token。
 >
 > 如果你是海外用户请更改 `IS_CHINESE = false` in `src/utils/const.ts`
-
-```bash
-# .env.local
-VITE_MAPBOX_TOKEN=your_mapbox_public_token
-```
 
 ## 更改默认地图服务样式
 
@@ -292,12 +287,8 @@ const MAP_TILE_ACCESS_TOKEN = 'your_access_token_here';
 
 每个`MAP_TILE_VERNDOR`都提供了多种`MAP_TILE_STYLE`选择，配置时需保证匹配。具体的`MAP_TILE_STYLE`名称，可参考`src/utils/const.ts`文件中的定义。
 
-当使用 **"mapbox"**、**"maptiler"** 或是 **"stadiamaps"** 时，需要配置对应的 token：
+当使用 **"maptiler"** 或是 **"stadiamaps"** 时，需要在 `src/utils/const.ts` 中配置 `MAP_TILE_ACCESS_TOKEN`。
 
-- 在 `.env.local` 中设置 `VITE_MAPBOX_TOKEN`，供 Mapbox GL JS 运行时使用
-- 当所选地图供应商本身需要 key 时，在 `src/utils/const.ts` 中设置 `MAP_TILE_ACCESS_TOKEN`
-
-- **Mapbox**: 在 https://www.mapbox.com/ 注册（有使用成本）
 - **MapTiler**: 在 https://cloud.maptiler.com/auth/widget 注册获取（免费）
 - **Stadia Maps**: 在 https://client.stadiamaps.com/signup/ 注册获取（免费）
 

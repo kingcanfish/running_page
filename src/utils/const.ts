@@ -1,6 +1,4 @@
 // Constants
-const MAPBOX_TOKEN =
-  import.meta.env.VITE_MAPBOX_TOKEN?.trim() || '';
 const MUNICIPALITY_CITIES_ARR = [
   '北京市',
   '上海市',
@@ -145,7 +143,6 @@ export {
   GOOGLE_ANALYTICS_TRACKING_ID,
   CHINESE_LOCATION_INFO_MESSAGE_FIRST,
   CHINESE_LOCATION_INFO_MESSAGE_SECOND,
-  MAPBOX_TOKEN,
   MUNICIPALITY_CITIES_ARR,
   MAP_LAYER_LIST,
   IS_CHINESE,
@@ -308,14 +305,6 @@ export const MAP_TILE_STYLES = {
 
 // Configuration validation
 if (typeof window !== 'undefined') {
-  if (MAPBOX_TOKEN === '') {
-    console.warn(
-      '⚠️ Mapbox GL JS requires a public token.\n' +
-        '💡 Set VITE_MAPBOX_TOKEN in your .env.local file.\n' +
-        '📚 See README.md for setup instructions.'
-    );
-  }
-
   // Validate token requirements
   if (MAP_TILE_VENDOR === 'mapcn' && MAP_TILE_ACCESS_TOKEN !== '') {
     console.warn(

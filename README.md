@@ -230,15 +230,10 @@ Open your browser and visit localhost:80
 
 ## Local sync data
 
-### Configuring Mapbox token
+### Map Runtime
 
 > If you use English please change `IS_CHINESE = false` in `src/utils/const.ts` <br>
-> Create your own public [Mapbox token](https://www.mapbox.com/) and keep it out of source control.
-
-```bash
-# .env.local
-VITE_MAPBOX_TOKEN=your_mapbox_public_token
-```
+> The default setup now uses MapLibre GL with MapCN, so no Mapbox token is required.
 
 ## Change Default Map Tile Style
 
@@ -288,12 +283,8 @@ const MAP_TILE_ACCESS_TOKEN = 'your_access_token_here';
 
 Each `MAP_TILE_VENDOR` provides multiple `MAP_TILE_STYLE` options. Ensure the style matches your selected vendor. For available `MAP_TILE_STYLE` names, refer to the definitions in `src/utils/const.ts`.
 
-When using **"mapbox"**, **"maptiler"** or **"stadiamaps"**, you must configure the required token(s):
+When using **"maptiler"** or **"stadiamaps"**, configure `MAP_TILE_ACCESS_TOKEN` in `src/utils/const.ts`.
 
-- `VITE_MAPBOX_TOKEN` in `.env.local` for the Mapbox GL JS runtime
-- `MAP_TILE_ACCESS_TOKEN` in `src/utils/const.ts` when your chosen tile vendor needs its own key
-
-- **Mapbox**: Register at [https://www.mapbox.com/](https://www.mapbox.com/) (Has usage costs)
 - **MapTiler**: Register at [https://cloud.maptiler.com/auth/widget](https://cloud.maptiler.com/auth/widget) (Free tier available)
 - **Stadia Maps**: Sign up at [https://client.stadiamaps.com/signup/](https://client.stadiamaps.com/signup/) (Free tier available)
 
