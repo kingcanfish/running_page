@@ -1,9 +1,6 @@
 // Constants
 const MAPBOX_TOKEN =
-  // For security reasons, please avoid using the default public token provided by Mapbox as much as possible.
-  // Instead, manually add a new token and apply URL restrictions.
-  // (please refer to https://github.com/yihong0618/running_page/issues/643#issuecomment-2042668580)
-  'your_mapbox_public_token';
+  import.meta.env.VITE_MAPBOX_TOKEN?.trim() || '';
 const MUNICIPALITY_CITIES_ARR = [
   '北京市',
   '上海市',
@@ -238,7 +235,7 @@ export const MAP_TILE_VENDOR = 'mapcn';
 export const MAP_TILE_STYLE_LIGHT = 'osm-bright';
 export const MAP_TILE_STYLE_DARK = 'dark-matter';
 
-// access token. you can apply a new one, it's free.
+// Access token for the selected tile vendor.
 // maptiler: your_maptiler_access_token | sign up at https://cloud.maptiler.com/auth/widget
 // stadiamaps: your_stadiamaps_api_key | sign up at https://client.stadiamaps.com/signup/
 // mapcn: empty
@@ -311,6 +308,14 @@ export const MAP_TILE_STYLES = {
 
 // Configuration validation
 if (typeof window !== 'undefined') {
+  if (MAPBOX_TOKEN === '') {
+    console.warn(
+      '⚠️ Mapbox GL JS requires a public token.\n' +
+        '💡 Set VITE_MAPBOX_TOKEN in your .env.local file.\n' +
+        '📚 See README.md for setup instructions.'
+    );
+  }
+
   // Validate token requirements
   if (MAP_TILE_VENDOR === 'mapcn' && MAP_TILE_ACCESS_TOKEN !== '') {
     console.warn(

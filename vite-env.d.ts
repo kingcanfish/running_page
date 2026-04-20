@@ -14,6 +14,7 @@ interface ImportMetaGlob {
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
+  readonly VITE_MAPBOX_TOKEN?: string;
   // more env variables...
 }
 

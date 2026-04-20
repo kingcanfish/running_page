@@ -93,8 +93,7 @@ const RunMap = ({
     [currentMapTheme]
   );
 
-  // Mapbox GL JS requires a token even when using other vendors
-  // Always use the MAPBOX_TOKEN from const.ts (user may have set their own token)
+  // Mapbox GL JS requires a public token even when the map style comes from another vendor.
   const mapboxAccessToken = useMemo(() => {
     return MAPBOX_TOKEN;
   }, []);
