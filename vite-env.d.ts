@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-svgr/client" />
 
 interface ImportMetaGlob {
   (
@@ -14,10 +15,17 @@ interface ImportMetaGlob {
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
-  // more env variables...
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
   readonly glob: ImportMetaGlob;
+}
+
+declare module '*.svg' {
+  import type { FC, SVGProps } from 'react';
+
+  export const ReactComponent: FC<SVGProps<SVGSVGElement>>;
+  const src: string;
+  export default src;
 }
