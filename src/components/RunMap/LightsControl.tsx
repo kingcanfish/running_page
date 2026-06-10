@@ -13,7 +13,7 @@ const LightsControl = ({ setLights, lights }: ILightsProps) => {
         onClick={() => setLights(!lights)}
       >
         <span
-          className="maplibregl-ctrl-icon"
+          className="mapboxgl-ctrl-icon"
           aria-hidden="true"
           title={'Turn ' + `${lights ? 'off' : 'on'}` + ' the Light'}
         ></span>

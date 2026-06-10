@@ -114,12 +114,18 @@ def parse_raw_data_to_nametuple(
     run_data, old_gpx_ids, old_tcx_ids, with_gpx=False, with_tcx=False
 ):
     run_data = run_data["data"]
-    
+
     # Only keep outdoorRunning and mountaineering data, filter out all other types
-    if run_data["dataType"] not in ["outdoorRunning", "indoorRunning", "mountaineering"]:
-        print(f"Skipping {run_data['dataType']} data, ID: {run_data['id'].split('_')[1]}")
+    if run_data["dataType"] not in [
+        "outdoorRunning",
+        "indoorRunning",
+        "mountaineering",
+    ]:
+        print(
+            f"Skipping {run_data['dataType']} data, ID: {run_data['id'].split('_')[1]}"
+        )
         return None
-    
+
     run_points_data = []
 
     # 5898009e387e28303988f3b7_9223370441312156007_rn middle

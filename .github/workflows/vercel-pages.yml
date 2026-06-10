@@ -97,6 +97,7 @@ jobs:
       - name: Build
         env:
           REPO_NAME: ${{ github.event.repository.name }}
+          VITE_MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
         run: pnpm build
 
       - name: Install Vercel CLI

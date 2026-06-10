@@ -65,6 +65,8 @@ jobs:
         run: pnpm install
 
       - name: Run check and build
+        env:
+          VITE_MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
         run: |
           pnpm run check
           pnpm run lint

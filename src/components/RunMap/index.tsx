@@ -26,6 +26,7 @@ import {
   LIGHTS_ON,
   MAP_TILE_VENDOR,
   MAP_TILE_ACCESS_TOKEN,
+  MAPBOX_TOKEN,
   getRuntimeSingleRunColor,
 } from '@/utils/const';
 import {
@@ -93,6 +94,8 @@ const RunMap = ({
     () => getMapStyle(MAP_TILE_VENDOR, currentMapTheme, MAP_TILE_ACCESS_TOKEN),
     [currentMapTheme]
   );
+
+  const mapboxAccessToken = MAPBOX_TOKEN;
 
   const switchLayerVisibility = useCallback(
     (map: MapInstance, nextLights: boolean) => {
@@ -219,7 +222,6 @@ const RunMap = ({
     filtered.unshift('in', 'name');
     return filtered;
   }, [countries]);
-
 
   // Apply layer visibility when lights setting changes
   useEffect(() => {
@@ -438,6 +440,7 @@ const RunMap = ({
       style={style}
       mapStyle={mapStyle}
       ref={mapRefCallback}
+      mapboxAccessToken={mapboxAccessToken}
       cooperativeGestures={isTouchDevice()}
     >
       {mapError && (
