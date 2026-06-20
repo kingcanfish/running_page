@@ -177,28 +177,31 @@ export const MAIN_COLOR = nike;
 export const PROVINCE_FILL_COLOR = '#47b8e0';
 export const COUNTRY_FILL_COLOR = dark_vanilla;
 
+// 亮色模式统一轨迹色：浅色底图下所有活动类型都用红色
+export const TRACK_COLOR_LIGHT = '#e3170a';
+
 // Static color constants
-export const RUN_COLOR_LIGHT = '#FC5200'; // Strava 橙红，浅色底图下高对比
+export const RUN_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const RUN_COLOR_DARK = MAIN_COLOR;
 
 // Single run animation colors
-export const SINGLE_RUN_COLOR_LIGHT = '#FC5200'; // Strava 橙红，浅色底图下高对比
+export const SINGLE_RUN_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const SINGLE_RUN_COLOR_DARK = '#ff4d4f'; // Red for dark theme
 
 // Theme-aware activity-type colors: [light, dark].
 // Dark values keep the original bright/neon palette tuned for the dark basemap;
 // light values are deepened/saturated for contrast on the pale Carto Voyager basemap.
-export const RUN_TRAIL_COLOR_LIGHT = '#d2601a'; // deep orange
+export const RUN_TRAIL_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const RUN_TRAIL_COLOR_DARK = 'rgb(255,153,51)';
-export const CYCLING_COLOR_LIGHT = '#1b7d3f'; // deep green
+export const CYCLING_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const CYCLING_COLOR_DARK = 'rgb(51,255,87)';
-export const HIKING_COLOR_LIGHT = '#6a1b9a'; // deep purple
+export const HIKING_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const HIKING_COLOR_DARK = 'rgb(151,51,255)';
-export const WALKING_COLOR_LIGHT = HIKING_COLOR_LIGHT;
+export const WALKING_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const WALKING_COLOR_DARK = HIKING_COLOR_DARK;
-export const SWIMMING_COLOR_LIGHT = '#c62828'; // deep red
+export const SWIMMING_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const SWIMMING_COLOR_DARK = 'rgb(255,51,51)';
-export const INDOOR_COLOR_LIGHT = '#546e7a'; // dark slate gray
+export const INDOOR_COLOR_LIGHT = TRACK_COLOR_LIGHT;
 export const INDOOR_COLOR_DARK = '#8899aa';
 
 // Determine whether the current theme is dark (SSR-safe, defaults to dark).
