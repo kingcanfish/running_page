@@ -7,18 +7,18 @@ import type { RPGeometry } from '@/static/run_countries';
 import worldGeoJsonUrl from '@/static/world.zh.json?url';
 import { getMapThemeFromCurrentTheme } from '@/hooks/useTheme';
 import {
-  CYCLING_COLOR,
   getMapTileVendorStyles,
   getRuntimeRunColor,
-  HIKING_COLOR,
-  INDOOR_COLOR,
+  getRuntimeCyclingColor,
+  getRuntimeHikingColor,
+  getRuntimeIndoorColor,
+  getRuntimeSwimmingColor,
+  getRuntimeTrailColor,
+  getRuntimeWalkingColor,
   MAIN_COLOR,
   MAP_TILE_STYLE_DARK,
   MAP_TILE_STYLES,
   NEED_FIX_MAP,
-  RUN_TRAIL_COLOR,
-  SWIMMING_COLOR,
-  WALKING_COLOR,
 } from './const';
 import type { Activity } from './utils';
 import { locationForRun } from './utils';
@@ -62,10 +62,10 @@ const colorForRun = (run: Activity): string => {
   switch (run.type) {
     case 'Run': {
       if (run.subtype === 'indoor' || run.subtype === 'treadmill') {
-        return INDOOR_COLOR;
+        return getRuntimeIndoorColor();
       }
       if (run.subtype === 'trail') {
-        return RUN_TRAIL_COLOR;
+        return getRuntimeTrailColor();
       } else if (run.subtype === 'generic') {
         return dynamicRunColor;
       }
@@ -73,16 +73,16 @@ const colorForRun = (run: Activity): string => {
     }
     case 'cycling':
     case 'Ride':
-      return CYCLING_COLOR;
+      return getRuntimeCyclingColor();
     case 'hiking':
     case 'Hike':
-      return HIKING_COLOR;
+      return getRuntimeHikingColor();
     case 'walking':
     case 'Walk':
-      return WALKING_COLOR;
+      return getRuntimeWalkingColor();
     case 'swimming':
     case 'Swim':
-      return SWIMMING_COLOR;
+      return getRuntimeSwimmingColor();
     default:
       return MAIN_COLOR;
   }

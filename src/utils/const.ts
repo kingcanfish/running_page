@@ -185,46 +185,67 @@ export const RUN_COLOR_DARK = MAIN_COLOR;
 export const SINGLE_RUN_COLOR_LIGHT = '#FC5200'; // Strava 橙红，浅色底图下高对比
 export const SINGLE_RUN_COLOR_DARK = '#ff4d4f'; // Red for dark theme
 
-// Helper function to get theme-aware RUN_COLOR
-export const getRuntimeRunColor = (): string => {
-  if (typeof window === 'undefined') return RUN_COLOR_DARK;
+// Theme-aware activity-type colors: [light, dark].
+// Dark values keep the original bright/neon palette tuned for the dark basemap;
+// light values are deepened/saturated for contrast on the pale Carto Voyager basemap.
+export const RUN_TRAIL_COLOR_LIGHT = '#d2601a'; // deep orange
+export const RUN_TRAIL_COLOR_DARK = 'rgb(255,153,51)';
+export const CYCLING_COLOR_LIGHT = '#1b7d3f'; // deep green
+export const CYCLING_COLOR_DARK = 'rgb(51,255,87)';
+export const HIKING_COLOR_LIGHT = '#6a1b9a'; // deep purple
+export const HIKING_COLOR_DARK = 'rgb(151,51,255)';
+export const WALKING_COLOR_LIGHT = HIKING_COLOR_LIGHT;
+export const WALKING_COLOR_DARK = HIKING_COLOR_DARK;
+export const SWIMMING_COLOR_LIGHT = '#c62828'; // deep red
+export const SWIMMING_COLOR_DARK = 'rgb(255,51,51)';
+export const INDOOR_COLOR_LIGHT = '#546e7a'; // dark slate gray
+export const INDOOR_COLOR_DARK = '#8899aa';
+
+// Determine whether the current theme is dark (SSR-safe, defaults to dark).
+const isDarkTheme = (): boolean => {
+  if (typeof window === 'undefined') return true;
 
   const dataTheme = document.documentElement.getAttribute('data-theme');
   const savedTheme = localStorage.getItem('theme');
 
-  // Determine current theme (default to dark)
-  const isDark =
+  // Default to dark when nothing is set.
+  return (
     dataTheme === 'dark' ||
     (!dataTheme && savedTheme === 'dark') ||
-    (!dataTheme && !savedTheme);
-
-  return isDark ? RUN_COLOR_DARK : RUN_COLOR_LIGHT;
+    (!dataTheme && !savedTheme)
+  );
 };
 
-// Helper function to get theme-aware SINGLE_RUN_COLOR
-export const getRuntimeSingleRunColor = (): string => {
-  if (typeof window === 'undefined') return SINGLE_RUN_COLOR_DARK;
+// Pick the theme-appropriate color from a [light, dark] pair.
+const themedColor = (light: string, dark: string): string =>
+  isDarkTheme() ? dark : light;
 
-  const dataTheme = document.documentElement.getAttribute('data-theme');
-  const savedTheme = localStorage.getItem('theme');
+// Theme-aware getters for each activity type.
+export const getRuntimeRunColor = (): string =>
+  themedColor(RUN_COLOR_LIGHT, RUN_COLOR_DARK);
+export const getRuntimeSingleRunColor = (): string =>
+  themedColor(SINGLE_RUN_COLOR_LIGHT, SINGLE_RUN_COLOR_DARK);
+export const getRuntimeTrailColor = (): string =>
+  themedColor(RUN_TRAIL_COLOR_LIGHT, RUN_TRAIL_COLOR_DARK);
+export const getRuntimeCyclingColor = (): string =>
+  themedColor(CYCLING_COLOR_LIGHT, CYCLING_COLOR_DARK);
+export const getRuntimeHikingColor = (): string =>
+  themedColor(HIKING_COLOR_LIGHT, HIKING_COLOR_DARK);
+export const getRuntimeWalkingColor = (): string =>
+  themedColor(WALKING_COLOR_LIGHT, WALKING_COLOR_DARK);
+export const getRuntimeSwimmingColor = (): string =>
+  themedColor(SWIMMING_COLOR_LIGHT, SWIMMING_COLOR_DARK);
+export const getRuntimeIndoorColor = (): string =>
+  themedColor(INDOOR_COLOR_LIGHT, INDOOR_COLOR_DARK);
 
-  // Determine current theme (default to dark)
-  const isDark =
-    dataTheme === 'dark' ||
-    (!dataTheme && savedTheme === 'dark') ||
-    (!dataTheme && !savedTheme);
-
-  return isDark ? SINGLE_RUN_COLOR_DARK : SINGLE_RUN_COLOR_LIGHT;
-};
-
-// Legacy export for backwards compatibility
+// Legacy exports for backwards compatibility (default/dark palette).
 export const RUN_COLOR = '#47b8e0';
-export const RUN_TRAIL_COLOR = 'rgb(255,153,51)';
-export const CYCLING_COLOR = 'rgb(51,255,87)';
-export const HIKING_COLOR = 'rgb(151,51,255)';
-export const WALKING_COLOR = HIKING_COLOR;
-export const SWIMMING_COLOR = 'rgb(255,51,51)';
-export const INDOOR_COLOR = '#8899aa';
+export const RUN_TRAIL_COLOR = RUN_TRAIL_COLOR_DARK;
+export const CYCLING_COLOR = CYCLING_COLOR_DARK;
+export const HIKING_COLOR = HIKING_COLOR_DARK;
+export const WALKING_COLOR = WALKING_COLOR_DARK;
+export const SWIMMING_COLOR = SWIMMING_COLOR_DARK;
+export const INDOOR_COLOR = INDOOR_COLOR_DARK;
 
 // map tiles vendor, maptiler or mapbox or stadiamaps
 // if you want to use maptiler, set the access token in MAP_TILE_ACCESS_TOKEN
