@@ -7,6 +7,7 @@ import {
   extractProvince,
 } from '../hooks/useActivities';
 import { AVATAR } from '../config';
+import { typeIcon } from '../utils/activityIcon';
 
 interface ProfileCardProps {
   activities: Activity[];
@@ -227,7 +228,7 @@ export const ProfileCard = memo(function ProfileCard({
             {locale === 'zh' ? '最近活动' : 'Latest Activity'}
           </p>
           <p className="text-sm font-medium">
-            {latest.type === 'Run' ? '🏃 ' : '🚴 '}
+            {typeIcon(latest.type)}{' '}
             {latest.name || (latest.type === 'Run' ? 'Run' : 'Ride')}
             <span className="font-normal text-[var(--color-muted)]">
               {' '}

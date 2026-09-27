@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import type { Activity, SportFilter } from '../types';
 import { formatDuration, formatPace } from '../hooks/useActivities';
 import { useLocale } from '../hooks/useLocale';
+import { typeIcon } from '../utils/activityIcon';
 
 interface ActivityLogProps {
   activities: Activity[];
@@ -16,13 +17,6 @@ interface ActivityLogProps {
 const PAGE_SIZE = 16;
 
 type DistanceFilter = 'all' | '10' | '20' | '40';
-
-function typeIcon(type: string): string {
-  const icons: Record<string, string> = {
-    Run: '🏃',
-  };
-  return icons[type] ?? '📌';
-}
 
 export function ActivityLog({
   activities,
