@@ -1,6 +1,5 @@
 const TYPE_ICONS: Record<string, string> = {
   Run: '🏃',
-  Hiking: '🥾',
   Hike: '🥾',
 };
 

@@ -208,6 +208,7 @@ export function getAvailableYears(activities: Activity[]): number[] {
 
 // Async data loading (fetch-based, compatible with Suspense)
 import activitiesUrl from '@/static/activities.json?url';
+import { normalizeActivityType } from '../activityType';
 
 let activityDataCache: Activity[] | null = null;
 let activityDataError: unknown = null;
@@ -221,8 +222,8 @@ const loadActivityData = () => {
       return response.json() as Promise<Activity[]>;
     })
     .then((data) => {
-      activityDataCache = data;
-      return data;
+      activityDataCache = data.map(normalizeActivityType);
+      return activityDataCache;
     })
     .catch((error: unknown) => {
       activityDataError = error;

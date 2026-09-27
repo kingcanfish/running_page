@@ -177,6 +177,10 @@ const getSportTypeOptions = (activityData: Activity[]) => {
     sportTypeSet.delete('Ride');
     sportTypeSet.add('cycling');
   }
+  if (sportTypeSet.has('Hike')) {
+    sportTypeSet.delete('Hike');
+    sportTypeSet.add('hiking');
+  }
   cache.sportTypeOptions = ['all', ...sportTypeSet];
   return cache.sportTypeOptions;
 };
@@ -243,6 +247,9 @@ const matchesSportType = (activity: Activity, sportTypeArg: string) => {
   }
   if (sportTypeArg === 'cycling') {
     return activity.type === 'cycling' || activity.type === 'Ride';
+  }
+  if (sportTypeArg === 'hiking') {
+    return activity.type === 'hiking' || activity.type === 'Hike';
   }
   return activity.type === sportTypeArg;
 };
