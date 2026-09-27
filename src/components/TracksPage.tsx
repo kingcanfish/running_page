@@ -11,7 +11,9 @@ import {
 } from '../hooks/useActivities';
 import { useLocale } from '../hooks/useLocale';
 
-type SportType = 'Run';
+type SportType = 'Run' | 'Hike';
+
+const HIKE_COLOR = '#22c55e';
 const trackPlaceholders = Array.from({ length: 40 }, (_, id) => ({
   id,
   delay: id * 20,
@@ -105,6 +107,7 @@ function getColor(a: Activity): string {
     const km = a.distance / 1000;
     return km >= 20 ? '#ef4444' : '#f97316';
   }
+  if (a.type === 'Hike') return HIKE_COLOR;
   return '#4dd2ff';
 }
 
@@ -261,6 +264,11 @@ export function TracksPage({
 
   const allSportTabs: { label: string; value: SportType; color: string }[] = [
     { label: locale === 'zh' ? '跑步' : 'Run', value: 'Run', color: '#f97316' },
+    {
+      label: locale === 'zh' ? '徒步' : 'Hike',
+      value: 'Hike',
+      color: HIKE_COLOR,
+    },
   ];
 
   return (
@@ -693,8 +701,16 @@ export function TracksPage({
                     </span>
                   </>
                 ) : null}
-                {null}
-                {null}
+                {(sportFilter === null || sportFilter === 'Hike') &&
+                hasSport('Hike') ? (
+                  <span className="flex items-center gap-1.5">
+                    <span
+                      className="inline-block h-0.5 w-3 rounded"
+                      style={{ backgroundColor: HIKE_COLOR }}
+                    />
+                    {locale === 'zh' ? '徒步' : 'Hike'}
+                  </span>
+                ) : null}
                 <div className="ml-auto flex items-center gap-1">
                   <span>
                     {clusteredTracks.length}{' '}
