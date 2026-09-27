@@ -21,6 +21,9 @@ IGNORE_BEFORE_SAVING = os.getenv("IGNORE_BEFORE_SAVING", False)
 # 0.002° ≈ 220m — treadmill GPS drift typically stays within this range.
 INDOOR_SPREAD_THRESHOLD = float(os.getenv("INDOOR_SPREAD_THRESHOLD", "0.002"))
 
+# Only these activity types get a virtual route when detected as indoor.
+RUN_TYPES = {"Run", "VirtualRun", "TrailRun"}
+
 # Distance (degrees) to decide if a route is a loop (start ≈ end).
 _LOOP_CLOSE_THRESHOLD = 0.003  # ~330m
 
@@ -284,13 +287,16 @@ class Generator:
         """Replace indoor activity polylines with routes derived from the
         nearest previous outdoor activity.
 
-        Indoor activities are identified by a multi-strategy approach:
+        Only run activities are considered; hikes, rides, etc. without GPS
+        keep their empty polyline instead of borrowing a running route.
+
+        Indoor runs are identified by a multi-strategy approach:
         1. Subtype match: known indoor subtypes from data sources
            (Garmin FIT "treadmill", Strava/Keep "VirtualRun", etc.)
         2. No GPS data: activity has distance but empty polyline
         3. Tiny GPS spread: bounding box < ~10 m (noisy indoor GPS)
-        For each indoor activity we:
-        1. Take the most recent preceding outdoor route as reference.
+        For each indoor run we:
+        1. Take the most recent preceding outdoor run route as reference.
         2. Truncate or extend it to match the indoor run's distance.
            - Loop routes (start ≈ end): keep cycling around.
            - Traverse routes: ping-pong (out-and-back).
@@ -308,10 +314,11 @@ class Generator:
         TINY_SPREAD_THRESHOLD = 0.0001
 
         # Classify each activity as indoor or outdoor and cache decoded coords
-        classified = []  # (dict, is_indoor, decoded_coords_or_None)
+        classified = []  # (dict, is_run, is_indoor, decoded_coords_or_None)
         for a in activity_list:
+            is_run = a.get("type") in RUN_TYPES
             subtype = (a.get("subtype") or "").lower()
-            is_indoor = subtype in INDOOR_SUBTYPES
+            is_indoor = is_run and subtype in INDOOR_SUBTYPES
 
             poly = a.get("summary_polyline") or ""
             coords = None
@@ -324,26 +331,31 @@ class Generator:
                     coords = None
 
             # Strategy 2: no GPS data but has distance → indoor
-            if not is_indoor and coords is None and a.get("distance", 0) > 100:
+            if (
+                is_run
+                and not is_indoor
+                and coords is None
+                and a.get("distance", 0) > 100
+            ):
                 is_indoor = True
 
             # Strategy 3: tiny GPS spread → noisy indoor GPS
-            if not is_indoor and coords and len(coords) >= 2:
+            if is_run and not is_indoor and coords and len(coords) >= 2:
                 lats = [c[0] for c in coords]
                 lngs = [c[1] for c in coords]
                 spread = max(max(lats) - min(lats), max(lngs) - min(lngs))
                 if spread < TINY_SPREAD_THRESHOLD:
                     is_indoor = True
 
-            classified.append((a, is_indoor, coords))
+            classified.append((a, is_run, is_indoor, coords))
 
-        # Replace indoor polylines using nearest previous outdoor route
+        # Replace indoor polylines using nearest previous outdoor run route
         last_outdoor_coords = None
         last_outdoor_location = None
         indoor_count = 0
-        for a, is_indoor, coords in classified:
+        for a, is_run, is_indoor, coords in classified:
             if not is_indoor:
-                if coords is not None:
+                if is_run and coords is not None:
                     last_outdoor_coords = coords
                     last_outdoor_location = a.get("location_country")
             else:
